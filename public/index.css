@@ -1,0 +1,27 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    background: #000113;
+    padding: 10px;
+}
+h1{
+    color: aliceblue;
+    font-family: sans-serif;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+form input{
+    padding: 4px 60px 4px 10px;
+    outline: none;
+    background-color: #02064e;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: aliceblue;
+    border: none;
+    
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account</title>
+  <link rel="stylesheet" href="sigup.css" />
+</head>
+<body>
+  <div class="signup-container">
+    <h1>Create Account</h1>
+    <form action="/register" method="post" class="signup-form">
+      <input type="text" name="name" placeholder="Enter your name" required />
+      <input type="text" name="username" placeholder="Enter your username" required />
+      <input type="email" name="useremail" placeholder="Enter your email" required />
+      <input type="password" name="userpassword" placeholder="Enter your password" required />
+      <input type="number" name="userage" placeholder="Enter your age" required />
+      <input type="submit" value="Create Account" />
+    </form>
+  <a href="/login" class="login-link">Login</a>
+
+  </div>
+</body>
+</html>

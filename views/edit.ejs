@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="/edit.css" />
+</head>
+<body>
+  <div class="edit-container">
+    <h2>Edit Your Blog</h2>
+    <form action="/update/<%= post._id %>" method="post" class="edit-form">
+      <textarea name="content" placeholder="Update your content here..." required><%= post.content %></textarea>
+      <input type="submit" value="Update Blog" />
+    </form>
+  </div>
+</body>
+</html>

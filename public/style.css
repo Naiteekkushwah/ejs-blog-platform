@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #0a0a23;
+  color: #fff;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.profile-header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-header h3 {
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: underline;
+  letter-spacing: 1px;
+}
+
+form {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input[type="file"],
+input[type="text"],
+input[type="submit"],
+textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #fff;
+  background-color: #1a1a4f;
+  color: #fff;
+}
+
+input[type="submit"] {
+  cursor: pointer;
+  background-color: #0033cc;
+  transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #0055ff;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.post-card {
+  background-color: #010e49;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.post-card h3 {
+  margin-bottom: 10px;
+}
+
+.post-card p {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.post-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.post-actions a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post-actions a.like {
+  color: #1670f0;
+}
+
+.post-actions a.edit {
+  color: #f0b322;
+}
+
+.post-actions a.delete {
+  color: #ff4d4d;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-card {
+    width: 100%;
+  }
+}

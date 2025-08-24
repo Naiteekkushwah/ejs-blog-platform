@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0a0a23;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.edit-container {
+  background-color: #101c4a;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.edit-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #f0f0f0;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-form textarea {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  min-height: 150px;
+  font-size: 16px;
+  background-color: #1a1a4f;
+  color: #fff;
+}
+
+.edit-form input[type="submit"] {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.edit-form input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive tweaks */
+@media (max-width: 500px) {
+  .edit-container {
+    padding: 20px;
+  }
+
+  .edit-form textarea {
+    font-size: 14px;
+  }
+
+  .edit-form input[type="submit"] {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
