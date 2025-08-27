@@ -1,0 +1,17 @@
+node_modules
+.env
+# लॉग फाइल्स
+*.log
+logs/
+npm-debug.log*
+
+# OS-specific फाइल्स
+.DS_Store
+Thumbs.db
+
+# IDEs की फोल्डरें
+.vscode/
+.idea/
+
+# Build artifacts
+/dist/
