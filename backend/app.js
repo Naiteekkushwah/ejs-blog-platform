@@ -43,7 +43,7 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-app.get('/register',(req,res)=> {
+app.get('/',(req,res)=> {
   let error=req.flash("error")
   let accountd=req.flash("accountd")
     res.render('index',{ error,accountd }) 
@@ -87,7 +87,7 @@ app.post('/login',async(req,res)=>{
    const password = await bcrypt.compare(userpassword,users.userpassword)
    if (!password) {
      req.flash('error','user is not registad');
-    return res.redirect('/register')
+    return res.redirect('/')
    } 
   const user =({
     userpassword:userpassword,
@@ -204,12 +204,12 @@ app.get('/logout', islogined.Loggined, async (req, res) => {
   try {
     const token = req.cookies.token;
     if (!token) {
-      return res.redirect('/register');
+      return res.redirect('/');
     }
     await usermodel.findByIdAndDelete(req.user._id);
     res.clearCookie('token');
     req.flash('accountd','delete account success fully')
-    res.redirect('/register');
+    res.redirect('/');
   } catch (error) {
     console.error('Logout Error:', error);
     res.status(500).send('कुछ गड़बड़ हो गई');

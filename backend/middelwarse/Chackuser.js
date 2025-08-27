@@ -6,7 +6,7 @@ module.exports.Loggined = async function (req, res, next) {
 
   if (!token) {
     console.log('Token missing');
-    return res.redirect('/register') 
+    return res.redirect('/') 
   }
 
   try {
@@ -21,6 +21,6 @@ module.exports.Loggined = async function (req, res, next) {
     next();
   } catch (err) {
     console.log('Token verification failed:', err.message);
-      return res.redirect('/register') 
+      return res.redirect('/') 
   }
 };
