@@ -1,16 +1,16 @@
 require('dotenv').config()
 const express = require('express')
 const app = express();
-const usermodel=require('./models/user')
-const dbconecte=require('./config/db')
+const usermodel=require('../models/user')
+const dbconecte=require('./db')
 dbconecte()
-const postmodel = require('./models/post')
-const genarattoken = require('./utils/genarattoken')
+const postmodel = require('../models/post')
+const genarattoken = require('../utils/genarattoken')
 const multer = require('multer')
 const crypto = require('crypto')
 const path = require('path')
-const islogined = require('./middelwarse/Chackuser');
-const uplodeimage = require('./middelwarse/uplodeimage')
+const islogined = require('../middelwarse/Chackuser');
+const uplodeimage = require('../middelwarse/uplodeimage')
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const flash = require('connect-flash');
