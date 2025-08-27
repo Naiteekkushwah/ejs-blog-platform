@@ -3,6 +3,7 @@ const express = require('express')
 const app = express();
 const usermodel=require('./models/user')
 const dbconecte=require('./config/db')
+dbconecte()
 const postmodel = require('./models/post')
 const genarattoken = require('./utils/genarattoken')
 const multer = require('multer')
@@ -11,9 +12,21 @@ const path = require('path')
 const islogined = require('./middelwarse/Chackuser');
 const uplodeimage = require('./middelwarse/uplodeimage')
 const cookieParser = require('cookie-parser');
+const expressSession = require('express-session');
+const flash = require('connect-flash');
+const bcrypt = require('bcrypt')
 
+app.use(
+  expressSession({
+  secret:'nodejs',
+  resave:true,
+  saveUninitialized: true
+})
+);
+
+app.use(flash())
 app.use(cookieParser())
-app. set("view engine",'ejs')
+app.set("view engine",'ejs')
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -21,7 +34,9 @@ app.use('/uploads', express.static('uploads'));
 
 
 app.get('/register',(req,res)=> {
-    res.render('index') 
+  let error=req.flash("error")
+  let accountd=req.flash("accountd")
+    res.render('index',{ error,accountd }) 
 })
 app.post('/register',async(req,res)=>{
     const {name,username,userpassword,userage,useremail}=req.body
@@ -30,34 +45,39 @@ app.post('/register',async(req,res)=>{
    } 
    const userfound = await usermodel.findOne({useremail:useremail});
    if (userfound) {
-    return res.send('user olrady register')
+    req.flash('olrady','user olrady registered')
+    return res.redirect('/login')
    }
+   const haspassword = await bcrypt.hash(userpassword,10)
   const user = await usermodel.create({
     name:name,
     username:username,
-    userpassword:userpassword,
+    userpassword:haspassword,
     userage:userage,
     useremail:useremail
   })
 const token = genarattoken.genarattoken(user)
 res.cookie('token',token)
-
-  res.redirect('login')
+ req.flash('register','user success fully registered')
+    return res.redirect('/login')
     
 })
 app.get('/login',(req,res)=> {
-    res.render('login') 
+  let error=req.flash("olrady")
+   let register=req.flash("register")
+    res.render('login',{ error,register }) 
 })
-
 app.post('/login',async(req,res)=>{
     const {userpassword,useremail}=req.body
-    const email = await usermodel.findOne({useremail})
-   if (!email) {
-    return res.status(400).send('user is not register')
+   const users = await usermodel.findOne({useremail}).select('+password')
+   if (!users) {
+     req.flash('error','user is not registad');
+    return res.redirect('/register')
    } 
-   const password = await usermodel.findOne({userpassword})
+   const password = await bcrypt.compare(userpassword,users.userpassword)
    if (!password) {
-    return res.status(400).send('user is not register')
+     req.flash('error','user is not registad');
+    return res.redirect('/register')
    } 
   const user =({
     userpassword:userpassword,
@@ -108,8 +128,6 @@ app.get('/like/:id', islogined.Loggined, async (req, res) => {
     res.status(500).send("Something went wrong");
   }
 });
-
-// GET route to render edit page
 app.get('/edit/:id', islogined.Loggined, async (req, res) => {
   try {
     const post = await postmodel.findById(req.params.id);
@@ -120,8 +138,6 @@ app.get('/edit/:id', islogined.Loggined, async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-// POST route to update post content
 app.post('/update/:id', islogined.Loggined, async (req, res) => {
   try {
     const post = await postmodel.findById(req.params.id);
@@ -156,11 +172,6 @@ app.get('/delete/:id', islogined.Loggined, async (req, res) => {
     res.status(500).send("Error deleting post");
   }
 });
-
-app.get('/text',(req,res)=>{
-  res.render('text')
-})
-
 app.post('/uplode',islogined.Loggined, uplodeimage.single('image'), async (req, res) => {
   try {
     const user = await usermodel.findOne({ _id:req.user._id });
@@ -179,11 +190,21 @@ app.post('/uplode',islogined.Loggined, uplodeimage.single('image'), async (req, 
     res.status(500).send('chose fil');
   }
 });
-app.get('/logout',islogined.Loggined,(req,res)=>{
-  res.cookie('token',"")
-  res.redirect('/register')
-})
-
+app.get('/logout', islogined.Loggined, async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.redirect('/register');
+    }
+    await usermodel.findByIdAndDelete(req.user._id);
+    res.clearCookie('token');
+    req.flash('accountd','delete account success fully')
+    res.redirect('/register');
+  } catch (error) {
+    console.error('Logout Error:', error);
+    res.status(500).send('कुछ गड़बड़ हो गई');
+  }
+});
 app.listen(process.env.PORT,()=>{
     console.log('server is runing');
     

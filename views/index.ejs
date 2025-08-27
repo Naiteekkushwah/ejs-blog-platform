@@ -7,6 +7,19 @@
   <link rel="stylesheet" href="sigup.css" />
 </head>
 <body>
+ 
+<% if (error && error.length > 0) { %>
+  <div style="background-color: red; color: white; padding: 10px; position: absolute; top: 10px; right: 10px; border-radius: 10px;">
+    <%= error[0] %>
+  </div>
+<% } %>
+<% if (accountd && accountd.length > 0) { %>
+  <div style="background-color: rgb(0, 255, 13); color: white; padding: 10px; position: absolute; top: 10px; right: 10px; border-radius: 10px;">
+    <%= accountd[0] %>
+  </div>
+<% } %>
+
+
   <div class="signup-container">
     <h1>Create Account</h1>
     <form action="/register" method="post" class="signup-form">

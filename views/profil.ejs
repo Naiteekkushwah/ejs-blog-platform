@@ -14,17 +14,17 @@
     <img src="/default-profile.png" alt="Default Profile" />
   <% } %>
   <h3>Hello, <%= user.name %></h3>
-  <a style="text-decoration: none; position: absolute; right: 20px; top: 20px; padding: 10px 15px;font-family: sans-serif; border-radius: 10px; background: #fa4e4e; color: aliceblue;" href="/logout">logout</a>
+  <a style="text-decoration: none; position: absolute; right: 20px; top: 20px; padding: 10px 15px;font-family: sans-serif; border-radius: 10px; background: #fa4e4e; color: aliceblue;" href="/logout" onclick="return confirm('Are you sure you want to delete account?')">logout</a>
 </div>
 
 <h1 style="margin-left: 20px;">Set Image</h1>
 <form action="/uplode" method="post" enctype="multipart/form-data">
-  <input type="file" name="image" />
+  <input type="file" name="image" required/>
   <input type="submit" value="Upload Image" />
 </form>
 
 <form action="/post" method="post">
-  <textarea name="content" placeholder="Write your blog content here..."></textarea>
+  <textarea name="content" placeholder="Write your blog content here..." required></textarea>
   <input type="submit" value="Post Blog" />
 </form>
 

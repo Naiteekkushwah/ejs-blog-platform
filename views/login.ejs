@@ -7,6 +7,17 @@
   <link rel="stylesheet" href="login.css" />
 </head>
 <body>
+  <% if (error && error.length > 0) { %>
+  <div style="background-color: red;position: absolute; border-radius: 10px; right: 10px; top: 10px; color: white; padding: 10px;">
+    <%= error[0] %>
+  </div>
+<% } %>
+ <% if (register && register.length > 0) { %>
+  <div style="background-color: rgb(0, 255, 34);position: absolute; border-radius: 10px; right: 10px; top: 10px; color: white; padding: 10px;">
+    <%= register[0] %>
+  </div>
+<% } %>
+
   <div class="login-container">
     <h1>Login to Your Account</h1>
     <form action="/login" method="post" class="login-form">
