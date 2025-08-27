@@ -18,7 +18,7 @@ const bcrypt = require('bcrypt')
 
 app.use(
   expressSession({
-  secret:'nodejs',
+  secret:process.env.EXPRESS_SECTION_KEY,
   resave:true,
   saveUninitialized: true
 })
@@ -31,7 +31,17 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/uploads', express.static('uploads'));
+const rateLimit = require('express-rate-limit');
 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: "Too many requests from this IP, please try again later.",
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(limiter);
 
 app.get('/register',(req,res)=> {
   let error=req.flash("error")
