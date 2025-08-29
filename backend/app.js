@@ -82,7 +82,7 @@ app.post('/login',async(req,res)=>{
    const users = await usermodel.findOne({useremail}).select('+password')
    if (!users) {
      req.flash('error','user is not registad');
-    return res.redirect('/register')
+    return res.redirect('/')
    } 
    const password = await bcrypt.compare(userpassword,users.userpassword)
    if (!password) {
